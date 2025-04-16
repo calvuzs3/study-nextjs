@@ -1,6 +1,7 @@
 import Form from "@/app/ui/invoices/edit-form";
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
 import { fetchInvoiceById, fetchCustomers } from "@/app/lib/data";
+import { notFound } from 'next/navigation';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   // In order to access the fparameters
@@ -12,7 +13,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     fetchInvoiceById(id),
     fetchCustomers(),
   ]);
-
+ 
+  // Throw the not found page if the invoice is not found
+  if (!invoice) {
+    notFound();
+  }
+ 
   return (
     <main>
       <Breadcrumbs
