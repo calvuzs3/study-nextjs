@@ -110,6 +110,9 @@ export async function GET() {
       seedRevenue(),
     ]);
 
+    // Log to use it as eslint says
+    console.log(result);
+    
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {
     return Response.json({ error }, { status: 500 });
